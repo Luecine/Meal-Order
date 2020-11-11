@@ -1,0 +1,11 @@
+create table info
+(
+    id        varchar(30),
+    password  varchar(30)
+);
+
+insert into info(id, password) values
+(
+    "tollea1234",
+    "skyss123"
+);
