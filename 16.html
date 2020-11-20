@@ -12,14 +12,54 @@
         <h1>메뉴 편집</h1>
     </header>
     <div>
-        <button type="button" style="margin-right:50px;">Add</button>
-        <button type="button" style="margin-right:50px">Delete</button>
+        <button class="w3-button w3-circle w3-black" onclick="edit_add()">+</button>
+        <button class="w3-button w3-circle w3-black" onclick="edit_delete()">-</button>
         <button type="button" style="margin-right:50px">Edit</button>
         <p style=" word-spacing:50px; text-align: center;"><strong>Menu Price</strong></p>
-        <input type="text" name="menu" size="7" placeholder="Pizza" style="text-align: center;">
-        <input type="text" name="Price" size="7" placeholder="100" style="text-align: center;">
-        <input type="checkbox" name="check" value="check" unchecked></br>
+        <div id="menu_price">
+            
+        </div>
 
+
+        <script type="text/javascript">
+
+            var count=0;
+
+            function edit_add() {
+
+                var menu_price=document.getElementById("menu_price");
+
+                var str="";
+                str=`<input type="text" name="menu" size="7" placeholder="Pizza" style="text-align: center;">
+                    <input type="text" name="Price" size="7" placeholder="100" style="text-align: center;">
+                    <input type="checkbox" name="check" value="check" unchecked></br>`
+                var add_div=document.createElement("div");//폼 생성
+                add_div.id="sub_menu_price"; //폼 id부여
+                add_div.innerHTML=str;
+                menu_price.appendChild(add_div);
+                count++;
+            }
+
+            function edit_delete(){
+                //현재 만드는 중
+                var menu_price=document.getElementById("menu_price");
+                
+
+
+                if(count>1){
+                    for(var i=0;i<document.getElementById("sub_menu_price").length;i++){
+                       
+                        if(document.getElementsByName("check")[i].checked==true){
+                            var add_div=document.getElementById("sub_menu_price")[i];
+                            menu_price.removeChild(add_div);
+                            count--;
+
+                        }
+                    }
+                }
+
+            }
+        </script>
     </div>
 
 </body>
