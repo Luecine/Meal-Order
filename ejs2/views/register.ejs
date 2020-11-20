@@ -1,0 +1,84 @@
+
+<html lnag="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>회원가입</title>
+        <link rel="stylesheet" href="new_main.css">
+        
+    </head>
+    <body>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- wrapper -->
+        <div id="wrapper">
+
+            <!-- content-->
+            <div id="content">
+
+                <!-- ID -->
+                <div>
+                    <h3 class="join_title">
+                        <label for="id">아이디</label>
+                    </h3>
+                    <span id="box int_id">
+                        <form action="/duplicateFunc" method="post">
+                            <input type="text" name="id" class="int" maxlength="20">
+                            <button type="submit" value="중복확인" id="id_check">중복확인</button>
+                            <label> <%=duplicateMsg%></label>
+                        </form>
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
+
+                <!-- PW1 -->
+                <div>
+                    <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
+                    <span class="box int_pass">
+                        <input type="text" name="pswd1" class="int" maxlength="20">
+                        <!-- <span id="alertTxt">사용불가</span>
+                        <img src="m_icon_pass.png" id="pswd1_img1" class="pswdImg"> -->
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
+
+                <!-- PW2 -->
+                <div>
+                    <h3 class="join_title"><label for="pswd2">비밀번호 재확인</label></h3>
+                    <span class="box int_pass_check">
+                        <input type="text" name="pswd2" class="int" maxlength="20">
+                        <!-- <img src="m_icon_check_disable.png" id="pswd2_img1" class="pswdImg"> -->
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
+
+                <!-- NAME -->
+                <div>
+                    <h3 class="join_title"><label for="name">이름</label></h3>
+                    <span id="box int_name">
+                        <input type="text" name="name" class="int" maxlength="20">
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
+
+                <!-- BIRTH -->
+               
+
+
+                <!-- JOIN BTN-->
+                <div id="btn_area">
+                    <button type="button" id="btnJoin">
+                        <span>가입하기</span>
+                    </button>
+                    <label id="successMsg"></label>
+                </div>
+
+                
+
+            </div> 
+            <!-- content-->
+
+        </div> 
+        <!-- wrapper -->
+    
+    </body>
+</html>
