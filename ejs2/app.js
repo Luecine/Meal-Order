@@ -16,8 +16,12 @@ app.use(bodyParser.urlencoded({extended : false}));
 
 
 app.get('/', function (req, res) {
+    const body = req.body
+    const inputId = body.id
+    console.log(body)
 
-    res.render('login.ejs');
+    res.send("root")
+    //res.render('login.ejs');
 });
 
 app.get('/list', function (req, res) {
@@ -27,10 +31,11 @@ app.get('/list', function (req, res) {
         else res.render('list.ejs', {list : rows});
     });
 });
-
 app.get('/register', function (req, res) {
-    res.render('register.ejs')
+    let duplicateMsg=""
+    res.render('register.ejs',{duplicateMsg:""})
 });
+
 
 app.post('/gotoRegister', function(req,res){
     res.redirect("/register");
@@ -61,10 +66,13 @@ app.post('/duplicateFunc', function(req, res){
             }
         }
     }
-
-    const sql = "SELECT userid, userPw from account";
     let duplicateMsg =""
 
+    const sql = "SELECT userid, userPw from account";
+    const body = req.body
+    const inputId = body.id
+    console.log(inputId)
+    
     conn.query(sql, function(err, rows, fields){
         if(err) throw err
         for(var i = 0; i < rows.length; i++){   
@@ -73,38 +81,49 @@ app.post('/duplicateFunc', function(req, res){
     
        // console.log(userInfo)
 
-        const body = req.body
-        const inputId = body.id
-      //  console.log(inputId)
-        
+      
         const flag = already(userInfo, inputId)
         
-        res.render('register.ejs', {duplicateMsg:""})
-        // if(flag) {           
-        // res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
-               
-        //     } else {
-        //         res.render('register.ejs', {duplicateMsg:"사용해도 좋은 ID입니다"})
-        //     }
+        //res.render('register.ejs', {duplicateMsg:" "})
+
+        if(inputId === "") {
+            res.render('register.ejs', {duplicateMsg:""})
+        } else {
+            if(flag){
+                res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
+            } else {
+                body.id = inputId
+                res.render('register.ejs', {duplicateMsg:"사용해도 좋은 ID입니다"})
+            }  
+        }
         
-        
-  
             
     })
 
 })
 
-app.get('/login', function (req, res) {
-    console.log(req.body)
+// app.get('/login', function (req, res) {
+//     console.log(req.body)
  
-});
+// });
 
 app.get('/next', function(req,res){
     res.render("next.ejs")
 })
 
-app.post('/loginFunc', function (req, res) {
-    res.redirect("/next");
+app.get('/login', function(req,res) {
+    res.render('login.ejs');
+})
+
+app.post('/loginFunc',function (req, res) {
+    let flag = false;
+   // console.log(req)
+    console.log(req.body)
+    res.render('login.ejs')
+    if(flag){
+        res.redirect("/next");
+    }
+  
 });
 
 app.listen(3100, () => console.log('Server is running on port 3100...'));
