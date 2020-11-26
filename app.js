@@ -49,13 +49,17 @@ app.post('/writeAf', function (req, res) {
 
 //메뉴편집 페이지
 app.get('/16',function(req,res){
-
-    res.render('16.ejs');
+    var sql = 'SELECT * FROM REVIEW';    
+    conn.query(sql, function (err, rows, fields) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else res.render('16.ejs', {review : rows});
+    });
+    
 });
 
 //리뷰확인 페이지
 app.get('/17',function(req,res){
-    var sql = 'SELECT * FROM BOARD';    
+    var sql = 'SELECT * FROM REVIEW';    
     conn.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('17.ejs', {review : rows});

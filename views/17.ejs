@@ -10,29 +10,23 @@
     <header class="w3-container w3-card-4 w3-theme">
         <h1>리뷰 확인</h1>
     </header>
-
-
     <table class="w3-table w3-striped w3-border">
-        <tr>
-            <th>이름</th>
-            <th>별점</th>
-            <th>내용</th>
-        </tr>
-        <tr>
-            <td>Jill</td>
-            <td>4.5</td>
-            <td>delicious</td>
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>4.0</td>
-            <td>94dddddd</td>
-        </tr>
-        <tr>
-            <td>Adam</td>
-            <td>6.0</td>
-            <td>67</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>별점</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(i = 0; i < review.length; i++) { %>
+            <tr>
+                <td><%=review[i].userId%></td>
+                <td><%=review[i].rate%></td>
+                <td><%=review[i].content %></td>
+            </tr>
+            <% } %>
+        </tbody>
     </table>
 
 
