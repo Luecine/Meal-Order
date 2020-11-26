@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>18page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+
+<body style="max-width:400px;margin:16px;border:1px solid #ccc">
+
+    <header class="w3-container w3-card-4 w3-theme">
+        <h1>데이터</h1>
+    </header>
+
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['bar']});
+          google.charts.setOnLoadCallback(drawChart);
+    
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Year', 'Sales', 'Expenses', 'Profit'],
+              ['2014', 1000, 400, 200],
+              ['2015', 1170, 460, 250],
+              ['2016', 660, 1120, 300],
+              ['2017', 1030, 540, 350]
+            ]);
+    
+            var options = {
+              chart: {
+                title: 'Clerk-free order',
+                subtitle: 'Sales: 2014-2017',
+              }
+            };
+    
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+    
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+          }
+        </script>
+      </head>
+
+    <div class="w3-panel">
+        <div id="columnchart_material" style="max-width: 100%; max-height: 100%;"></div>
+    </div>
+</body>
+
+</html>
