@@ -106,7 +106,7 @@ app.get('/duplicateFunc', function(req, res){
             if(flag){
                 res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
             } else {
-                res.render('register.ejs', {duplicateMsg:"사용해도 좋은 ID입니다"})
+                res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
                 sql = `insert into ACCOUNT(userId, name, userPw, isManager) values (?, ?, ?,?)`
 
                 conn.query(sql,[inputId,inputName, inputPw, 0])
