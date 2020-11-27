@@ -3,7 +3,7 @@ CREATE TABLE ACCOUNT
 	userId                VARCHAR(20)  NOT NULL ,
 	name                  VARCHAR(20)  NULL ,
 	userPw                VARCHAR(20)  NOT NULL ,
-	userNum               INT  NOT NULL ,
+	userNum               INT  NOT NULL auto_increment,
 	isManager             BOOLEAN  NOT NULL, 
 
     primary key (userId, userNum),
@@ -19,17 +19,19 @@ CREATE TABLE FINANCE
 
 CREATE TABLE HISTORY
 (
+	hisoryNum			  int auto_increment,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL ,
 	date                  DATE  NULL ,
 
-    primary key(userId, userNum),
+    primary key(userId, userNum,historyNum),
+	unique(historyNum),
     constraint idConstraint foreign key(userId, userNum) references ACCOUNT(userId, userNum) on delete cascade
 );
 
 CREATE TABLE CART
 (
-	cartNum              INT  NOT NULL ,
+	cartNum              INT  NOT NULL auto_increment,
 	totalPrice           INT  NULL ,
 	itemNum              INT  NULL ,
 	userId                VARCHAR(20)  NOT NULL ,
@@ -89,18 +91,5 @@ INSERT INTO account (userId, name, userPw, userNum,isManager) VALUES
 );
 
 
-create table board
-(
-	ID 		 VARCHAR(20),
-	title	 VARCHAR(20),
-	content  VARCHAR(20),
-	wdate    INT
-);
 
-insert into board values
-(
-	"kim",
-	"HeeSu",
-	"hello",
-	10
-);
+insert into ACCOUNT(userId, userPw, name) values (?, ?, ?)
