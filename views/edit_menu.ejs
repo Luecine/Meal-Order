@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>16page</title>
+<title>edit_menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
@@ -17,7 +17,6 @@
             <fieldset>
                 <input type="text" name="menu" size="7" placeholder="Pizza" style="text-align: center;">
                 <input type="text" name="price" size="7" placeholder="1000" style="text-align: center;">
-                <input type="text" name="ItemNum" size="7" placeholder="itemNum" style="text-align: center;">
                 <input type="submit" class="w3-button w3-black w3-border" value="ADD"></br>
             </fieldset>
         </form>
@@ -45,27 +44,8 @@
 
         </div>
 
-
-        <script type="text/javascript">
-
-            var count = 0;
-
-            function edit_add() {
-                var menu_price = document.getElementById("menu_price");
-
-                var str = "";
-                str = `<input type="text" name="menu" size="7" placeholder="Pizza" style="text-align: center;">
-                    <input type="text" name="Price" size="7" placeholder="100" style="text-align: center;">
-                    <input type="checkbox" name="check" value="check" unchecked></br>`
-                var add_div = document.createElement("div");//폼 생성
-                add_div.id = "sub_menu_price"; //폼 id부여
-                add_div.innerHTML = str;
-                menu_price.appendChild(add_div);
-                count++;
-            }
-        </script>
     </div>
-
+    <button class="w3-button w3-black w3-border" onClick="location.href='manager_menu'"">BACK</button>
 </body>
 
 </html>
