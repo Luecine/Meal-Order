@@ -80,6 +80,8 @@ CREATE TABLE REVIEW
     constraint reviewConstraint foreign key(userId, userNum) references HISTORY(userId, userNum)
 );
 
+create table temp_cart(name varchar(20), price int, number int);
+
 
 INSERT INTO account (userId, name, userPw, userNum,isManager) VALUES
 (
