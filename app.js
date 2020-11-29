@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 
-var total=0;
+
 
 //매니저 메뉴 페이지
 app.get('/manager_menu', function (req, res) {
@@ -28,7 +28,7 @@ app.get('/first', function (req, res) {
 
 //메뉴편집 페이지 edit_menu
 app.get('/edit_menu',function(req,res){
-    var sql = 'SELECT * FROM ITEM';    
+    let sql = 'SELECT * FROM ITEM';    
     conn.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('edit_menu.ejs', {ITEM : rows});
@@ -37,7 +37,7 @@ app.get('/edit_menu',function(req,res){
 
 //리뷰확인 페이지 review_confirm
 app.get('/review_confirm',function(req,res){
-    var sql = 'SELECT * FROM REVIEW';    
+    let sql = 'SELECT * FROM REVIEW';    
     conn.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('review_confirm.ejs', {review : rows});
@@ -46,10 +46,21 @@ app.get('/review_confirm',function(req,res){
 
 //매출량 페이지 sale
 app.get('/sale',function(req,res){
-    var sql = 'SELECT * FROM FINANCE';    
+    //매출량 
+    let sql = 'SELECT * FROM FINANCE';
+
     conn.query(sql, function (err, rows, fields) {
-        if(err) console.log('query is not excuted. select fail...\n' + err);
-        else res.render('sale.ejs', {FINANCE : rows, sell_total : total});
+        if(err) {
+            console.log('query is not excuted. select fail...\n' + err);
+        }
+        else{
+            let total=0;
+            for(let i=0;i<rows.length;i++){
+                total+=parseInt(rows[i].totalProfit);
+            }
+
+            res.render('sale.ejs', {FINANCE : rows, sell_total : total});
+        }
     });
 });
 
