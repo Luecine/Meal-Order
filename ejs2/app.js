@@ -1,3 +1,14 @@
+const mysql = require("sync-mysql");
+
+
+const connection = new mysql({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "clerkfree",
+});
+
+
 
 var express = require('express');
 var app = express();
@@ -33,11 +44,84 @@ app.use(session({
     store : sessionStore
 }))
 
-app.get('/', function (req, res) {
-    const body = req.body
-    const inputId = body.id
-    console.log(body)
+// ------------------------류신영------------------------------- 
 
+
+app.get("/order", (req, res) => {
+    console.log(req.session.isLogined)
+    if(req.session.isLogined){
+        connection.query(`DELETE FROM temp_cart`);
+        let result = connection.query(`SELECT name, price FROM item`);
+        let end = result.length;
+        let namejs = [];
+        let pricejs = [];
+        let i = 0;
+        while (i < end) {
+          namejs[i] = result[i].name;
+          pricejs[i] = result[i].price;
+          i++;
+        }
+        res.render("orderTemplate", { length: end, name: namejs, price: pricejs });
+    } 
+
+});
+
+
+app.get("/purchase", (req, res) => {
+    if(req.session.isLogined){
+        let _url = req.url;
+        let queryData = url.parse(_url, true).query;
+      
+        let result1 = connection.query(`SELECT name, price FROM item`);
+        let end = result1.length;
+        let i = 0;
+        while (i < end) {
+          let result_name = result1[i].name;
+          let result_price = result1[i].price;
+          let querydata = queryData.index[i];
+      
+          let result1_result = connection.query(
+            `INSERT INTO temp_cart(name, price, number) VALUES (?,?,?)`,
+            [result_name, result_price, querydata]
+          );
+          i++;
+        }
+      
+        result2 = connection.query(`SELECT name, price, number FROM temp_cart`);
+        let end2 = result2.length;
+        let namejs2 = [];
+        let pricejs2 = [];
+        let numberjs2 = [];
+        let totaljs2 = 0;
+        let j = 0;
+        while (j < end) {
+          namejs2[j] = result2[j].name;
+          pricejs2[j] = result2[j].price;
+          numberjs2[j] = result2[j].number;
+          totaljs2 += result2[j].price * result2[j].number;
+          j++;
+        }
+      
+        console.log(totaljs2);
+      
+        res.render("purchaseTemplate", {
+          length: end2,
+          name: namejs2,
+          number: numberjs2,
+          total: totaljs2,
+        });
+
+    }
+
+   
+});
+
+
+
+
+// ---------------------------김희수 ---------------------------- 
+app.get('/', function (req, res) {
+    
     res.send("root")
     //res.render('login.ejs');
 });
@@ -51,15 +135,6 @@ app.get('/registerPage', function (req, res) {
 
 app.post('/gotoRegister', function(req,res){
     res.redirect("/registerPage");
-})
-
-app.get('/registerFunc', function(req, res){
-    let _url = req.url
-    const queryData = url.parse(_url, true).query
-    let inputId = queryData.id
-    let inputPw = queryData.pswd1
-
-    console.log(inputId,inputPw)
 })
 
 
@@ -118,10 +193,6 @@ app.get('/duplicateFunc', function(req, res){
 
 })
 
-app.get('/order', function(req,res){
-    console.log(req.session.isLogined)
-    res.render("order.ejs")
-})
 
 app.get('/review', function(req,res){
     console.log(req.session.isLogined)

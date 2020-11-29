@@ -92,4 +92,11 @@ INSERT INTO account (userId, name, userPw, userNum,isManager) VALUES
 
 
 
-insert into ACCOUNT(userId, userPw, name) values (?, ?, ?)
+insert into ACCOUNT(userId, name, userPw, isManager) VALUES
+(
+	"skyss123",
+	"Leel",
+	"125",
+)
+
+delete from account;
