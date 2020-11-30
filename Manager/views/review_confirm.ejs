@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<title>review_confirm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+
+<body style="max-width:400px;margin:16px;border:1px solid #ccc">
+
+    <header class="w3-container w3-card-4 w3-theme">
+        <h1>리뷰 확인</h1>
+    </header>
+    <table class="w3-table w3-striped w3-border">
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>별점</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(i = 0; i < review.length; i++) { %>
+            <tr>
+                <td><%=review[i].userId%></td>
+                <td><%=review[i].rate%></td>
+                <td><%=review[i].content %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <button class="w3-button w3-black w3-border" onClick="location.href='manager_menu'">BACK</button>
+
+</body>
+
+</html>

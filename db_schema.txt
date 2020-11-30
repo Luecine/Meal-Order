@@ -4,11 +4,12 @@ CREATE TABLE ACCOUNT
 	name                  VARCHAR(20)  NULL ,
 	userPw                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL auto_increment,
-	isManager             BOOLEAN  NOT NULL, 
+	
 
     primary key (userId, userNum),
 	unique(userNum)
 );
+
 
 CREATE TABLE FINANCE
 (
@@ -19,21 +20,19 @@ CREATE TABLE FINANCE
 
 CREATE TABLE HISTORY
 (
-	hisoryNum			  int auto_increment,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL ,
+	historyNum	 INT NOT NULL,
 	date                  DATE  NULL ,
 
-    primary key(userId, userNum,historyNum),
-	unique(historyNum),
+    primary key(userId, userNum, historyNum),
     constraint idConstraint foreign key(userId, userNum) references ACCOUNT(userId, userNum) on delete cascade
 );
 
 CREATE TABLE CART
 (
-	cartNum              INT  NOT NULL auto_increment,
+	cartNum              INT  NOT NULL ,
 	totalPrice           INT  NULL ,
-	itemNum              INT  NULL ,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL,
     primary key(cartNum)
@@ -72,31 +71,41 @@ CREATE TABLE REVIEW
 	reviewNum             INT NOT NULL ,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL ,
+	historyNum	 INT NOT NULL,
 	content               VARCHAR(100)  NOT NULL ,
 	date                  DATE  NULL ,
 	rate                  INT  NULL,
 
-    primary key(reviewNum, userId, userNum),
-    constraint reviewConstraint foreign key(userId, userNum) references HISTORY(userId, userNum)
+    primary key(reviewNum, userId, userNum, historyNum),
+    constraint reviewConstraint foreign key(userId, userNum, historyNum) references HISTORY(userId, userNum, historyNum) on delete cascade
 );
 
-
-INSERT INTO account (userId, name, userPw, userNum,isManager) VALUES
+INSERT INTO account (userId, name, userPw, userNum) VALUES
 (
 	"tollea1234",
 	"Kim",
 	"1234",
-	1,
 	1
 );
 
 
+CREATE TABLE Manager
+(
+	managerId                VARCHAR(20)  NOT NULL ,
+	name              		 VARCHAR(20)  NULL ,
+	managerPw                VARCHAR(20)  NOT NULL ,
+	managerNum               INT  NOT NULL auto_increment,
 
-insert into ACCOUNT(userId, name, userPw, isManager) VALUES
+    primary key (managerId, managerNum),
+	unique(managerNum)
+);
+
+
+
+
+INSERT INTO Manager (managerId, name, managerPw) VALUES
 (
 	"skyss123",
-	"Leel",
-	"125",
+	"Lee",
+	"qwer"
 )
-
-delete from account;

@@ -43,6 +43,54 @@ app.use(session({
     saveUninitialized : true,
     store : sessionStore
 }))
+// -----------------------김선우-------------------------------
+app.get('/review', function (req, res) {
+    let result = connection.query(`SELECT R.userId, R.content, R.rate
+    FROM REVIEW AS R `);
+    //세션정보에 userNum 넘어오면 WHERE문에 A.userNum = H.userNum 추가
+    let end = result.length;
+    let userIdjs = [];
+    let contentjs = [];
+    let ratejs = [];
+    let i = 0;
+    while (i < end) {
+      userIdjs[i] = result[i].userId;
+      contentjs[i] = result[i].content;
+      ratejs[i] = result[i].rate;
+      i++;
+    }
+    res.render("Review", { length: end, userId: userIdjs, content: contentjs, rate: ratejs});
+  });
+  
+  app.get('/viewHistory', function (req, res) {
+      let result = connection.query(`SELECT DISTINCT H.date, R.content, C.totalPrice, I.name
+      FROM HISTORY AS H, REVIEW AS R, CART AS C, ORDER_ITEM_DETAIL AS O, ITEM AS I
+      WHERE H.historyNum = R.historyNum
+      AND H.userNum = C.userNum
+      AND O.cartNum = C.cartNum
+      AND I.itemNum = O.itemNum`);
+      //세션정보에 userNum 넘어오면 WHERE문에 A.userNum = H.userNum 추가
+      let end = result.length;
+      let datejs = [];
+      let contentjs = [];
+      let totalpricejs = [];
+      let namejs = [];
+      let i = 0;
+      while (i < end) {
+        datejs[i] = result[i].date;
+        contentjs[i] = result[i].content;
+        totalpricejs[i] = result[i].totalPrice;
+        namejs[i] = result[i].name;
+        i++;
+      }
+      res.render("OrderHistory", { length: end, date: datejs, content: contentjs, totalprice: totalpricejs, name:namejs});
+  });
+  
+  app.get('/writeReview', function (req, res) {
+    
+    res.render("WriteReview");
+  });
+
 
 // ------------------------류신영------------------------------- 
 
@@ -182,7 +230,7 @@ app.get('/duplicateFunc', function(req, res){
                 res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
             } else {
                 res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
-                sql = `insert into ACCOUNT(userId, name, userPw, isManager) values (?, ?, ?,?)`
+                sql = `insert into ACCOUNT(userId, name, userPw) values (?, ?, ?)`
 
                 conn.query(sql,[inputId,inputName, inputPw, 0])
         
@@ -194,10 +242,6 @@ app.get('/duplicateFunc', function(req, res){
 })
 
 
-app.get('/review', function(req,res){
-    console.log(req.session.isLogined)
-    res.render("review.ejs")
-})
 
 app.get('/history', function(req,res){
     console.log(req.session.isLogined)
