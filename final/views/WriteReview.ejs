@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WriteReview</title>
+        <style>
+             #WriteReview-title{
+                text-align: center;
+            }
+             #WriteReview-title1{
+                border:1px solid;
+                float:left;
+                margin-left:10px;
+                margin-right:50px;
+            }
+            #WriteReview-title2{
+                border:1px solid;
+                width : 200px;
+                float:left;
+                text-align:center;
+                background-color: aquamarine;
+            }
+            #WriteReview-write{
+                border:20px solid rgb(200, 200, 200);
+                padding-left:20px;
+                padding-right:20px;
+            }
+            #review-content{
+                width:100%;
+            }
+            #review-submit-button{
+                float:right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "WriteReview-title" style = "height:150px; background-color:rgb(175, 248, 238)">
+            <div id = "WriteReview-title1"><button onClick="location.href='Main.html'">프로필사진(홈으로)</button> </div>
+            <div id = "WriteReview-title2">welcome!<br>User 홍길동</div>
+        </div>
+        <form action = "/insertReview" method = "post">
+            <div id = "WriteReview-write"><br><br>
+                <b>Choose Your History</b>
+                <select name ="historyNum" style = "width:80px;">
+                    <% for(i = 0; i< length; i++) { %>
+                        <option value = <%=historyNum[i] %> ><%=historyNum[i] %></option>
+                    <% } %>
+                </select><br>
+               <b>Rating:</b> <input id = "review-rate" name = "rate" type = "text">
+               <textarea id = "review-content" name = "content" rows="5"></textarea><br>
+              <button id = "review-submit-button">submit</button>
+            <br><br></div>
+        </form>
+    </body>
+</html>
