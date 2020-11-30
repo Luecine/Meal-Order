@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+ <html><head>
+     <meta charset="EUC-KR" />
+  <title>CreditCardTemplate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap"
+    rel="stylesheet"
+  />
+ 
+ </head>
+ <body>
+
+<div class="w3-card-4">
+<header class="w3-container w3-green">
+  <h3>Card Info</h3>
+</header>
+
+
+  <form action ="/iamport" method = "get">
+  <div class = "w3-container">
+Card Number<input class="w3-input" type="text" name = "cn"/>
+Expiring date<input class="w3-input" type="text" name = "ed"/>
+Birth<input class="w3-input" type="text" name = "b"/>
+2PWdigits<input class="w3-input" type="text" name = "pw"/>
+</div>
+
+<footer class="w3-container w3-green">
+  
+ <input type = "submit" class = "w3-right" value = "결제정보입력"/>
+ </form>
+ 
+ <form action="/main" method="get">
+  <input type = "submit" class = "w3-right" value = "메인으로"/>
+</form>
+
+</footer>
+</div>
+
+</body>
+</html>

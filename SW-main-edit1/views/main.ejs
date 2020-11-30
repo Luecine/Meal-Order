@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>User menu</title>
+    <style>
+      body {
+        padding: 80px;
+        text-align: center;
+      }
+      #user_container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        border: 2px dashed black;
+        font-style: italic;
+      }
+      #titlecontainer {
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+      #review_button {
+        background-color: #4caf50; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 100%; /* Set a width if needed */
+        display: block; /* Make the buttons appear below each other */
+      }
+
+      #order_button {
+        background-color: #4caf50; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 100%; /* Set a width if needed */
+        display: block; /* Make the buttons appear below each other */
+      }
+
+      #history_button {
+        background-color: #4caf50; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 100%; /* Set a width if needed */
+        display: block; /* Make the buttons appear below each other */
+      }
+
+      .btn-group button:not(:last-child) {
+        border-bottom: none; /* Prevent double borders */
+      }
+
+      /* Add a background color on hover */
+      .btn-group button:hover {
+        background-color: #3e8e41;
+      }
+      .review {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .order {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .history {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="whole">
+      <div id="user_container">
+        <label>Welcome! User: <%= user %> </label>
+      </div>
+      <div id="titlecontainer">
+        <h1 id="menu_banner">User Menu</h1>
+      </div>
+      <div class="btn_group">
+        <div id="review">
+          <form action="/review" method="get">
+            <button id="review_button" type="submit">Wrtie Review</button>
+          </form>
+        </div>
+
+        <div id="order">
+          <form action="/order" method="get">
+            <button id="order_button" type="submit">Order</button>
+          </form>
+        </div>
+
+        <div id="history">
+          <form action="/history" method="get">
+            <button id="history_button" type="submit">history</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
