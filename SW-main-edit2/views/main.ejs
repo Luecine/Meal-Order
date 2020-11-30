@@ -80,12 +80,6 @@
         <h1 id="menu_banner">User Menu</h1>
       </div>
       <div class="btn_group">
-        <div id="review">
-          <form action="/review" method="get">
-            <button id="review_button" type="submit">Wrtie Review</button>
-          </form>
-        </div>
-
         <div id="order">
           <form action="/order" method="get">
             <button id="order_button" type="submit">Order</button>
@@ -93,8 +87,20 @@
         </div>
 
         <div id="history">
-          <form action="/history" method="get">
-            <button id="history_button" type="submit">history</button>
+          <form action="/viewHistory" method="get">
+            <button id="history_button" type="submit">History</button>
+          </form>
+        </div>
+
+        <div id="review">
+          <form action="/review" method="get">
+            <button id="review_button" type="submit">Write Review</button>
+          </form>
+        </div>
+
+        <div id="logout">
+          <form action="/logout" method="get">
+            <button id="review_button" type="submit">Log out</button>
           </form>
         </div>
       </div>
