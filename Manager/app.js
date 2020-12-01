@@ -72,7 +72,7 @@ app.get('/edit_menu',function(req,res){
 
 //리뷰확인 페이지 review_confirm
 app.get('/review_confirm',function(req,res){
-    let sql = 'SELECT * FROM REVIEW';    
+    let sql = 'SELECT * FROM TEMP_REVIEW';    
     conn.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('review_confirm.ejs', {review : rows});
