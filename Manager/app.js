@@ -53,7 +53,9 @@ app.use(session({
 
 //매니저 메뉴 페이지
 app.get('/manager_menu', function (req, res) {
-    res.render('manager_menu.ejs');
+    console.log(req.session.name)
+    res.render('manager_menu.ejs', {name : req.session.name});
+    //res.send('ROOT');
 });
 
 //시작 페이지
@@ -189,11 +191,12 @@ app.get('/duplicateFunc', function(req, res){
             if(flag){
                 res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
             } else {
-                res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
+                //res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
+                res.send('<script>alert("회원가입 성공");location.href="/login";</script>');
+                //res.redirect("/login");
                 sql = `insert into Manager(managerId, name, managerPw) values (?, ?, ?)`
 
                 conn.query(sql,[inputId,inputName, inputPw])
-        
             }  
         }
     })
@@ -209,55 +212,64 @@ app.get('/login', function(req,res) {
 
 app.post('/loginFunc', function (req, res) {
 
-  const body = req.body
-  const inputId = body.id
-  const inputPw = body.pw
-//  console.log(inputId,inputPw)
-
-  const managerInfo = []
-
+    const body = req.body
+    const inputId = body.id
+    const inputPw = body.pw
+  //  console.log(inputId,inputPw)
   
-
-  const sql = "SELECT managerid, managerPw FROM Manager";
-  conn.query(sql, function(err, rows, fields){
-    if(err) throw err
-    else{
-        for(var i = 0; i < rows.length; i++){   
-            managerInfo.push( {managerid:rows[i].managerid, managerPw: rows[i].managerPw})
-        }
-        
-        console.log(managerInfo)
-
-        let flag = managerInfo.some(function(element){
-            if(element.managerid === inputId && element.managerPw === inputPw){
-                return true;
-            }
-        })
-
-        console.log(flag)
-
-        if(inputId === "") {
-            res.render('login.ejs', {loginMsg:""})
-        } else {
-            if(flag){
-                req.session.managerid = inputId
-                req.session.managerPw = inputPw
-                req.session.isLogined = true
-
-                console.log(inputId, inputPw)
-                req.session.save(function(){
-                    res.redirect('/manager_menu')
-                })
-            } else {
-                res.render('login.ejs', {loginMsg:"등록되지 않은 ID 또는 PW입니다"})
-            }  
-        }
-
-    }
+    const managerInfo = []
+  
     
-  })
-
-});
+  
+    const sql = "SELECT managerid, managerPw, name FROM Manager";
+    conn.query(sql, function(err, rows, fields){
+      if(err) throw err
+      else{
+          for(var i = 0; i < rows.length; i++){   
+              managerInfo.push( {managerid:rows[i].managerid, managerPw: rows[i].managerPw, name : rows[i].name})
+          }
+          
+          console.log(managerInfo)
+  
+          let flag = managerInfo.some(function(element){
+              if(element.managerid === inputId && element.managerPw === inputPw){
+                  return true;
+              }
+          })
+             
+          let managerIndex = managerInfo.findIndex(function(element){
+              if(element.managerid === inputId && element.managerPw===inputPw){
+                  return true
+              }
+          })
+          
+          console.log(flag)
+          console.log(managerInfo[managerIndex])
+  
+          if(inputId === "") {
+              res.render('login.ejs', {loginMsg:""})
+          } else {
+              if(flag){
+                  req.session.managerid = managerInfo[managerIndex].managerid
+                  req.session.managerPw = managerInfo[managerIndex].managerPw
+                  req.session.name = managerInfo[managerIndex].name
+                  req.session.isLogined = true
+  
+                  console.log(managerInfo[managerIndex].name)
+                  req.session.save(function(){
+                      res.redirect('/manager_menu')
+                  })
+              } else {
+                  res.render('login.ejs', {loginMsg:"등록되지 않은 ID 또는 PW입니다"})
+              }  
+          }
+  
+      }
+      
+    })
+  
+  });
+  
 
 //로그아웃
 app.get("/logout", function (req, res) {
