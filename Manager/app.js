@@ -191,7 +191,9 @@ app.get('/duplicateFunc', function(req, res){
             if(flag){
                 res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
             } else {
-                res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
+        
+                
+                res.send('<script> alert("회원가입 성공"); location.href="/login"; </script>')
                 sql = `insert into Manager(managerId, name, managerPw) values (?, ?, ?)`
 
                 conn.query(sql,[inputId,inputName, inputPw])
@@ -256,7 +258,7 @@ app.post('/loginFunc', function (req, res) {
 
                 console.log(managerInfo[managerIndex].name)
                 req.session.save(function(){
-                    res.redirect('/manager_menu')
+                    res.send('<script> alert("로그인 성공"); location.href="/manager_menu"; </script>')
                 })
             } else {
                 res.render('login.ejs', {loginMsg:"등록되지 않은 ID 또는 PW입니다"})
