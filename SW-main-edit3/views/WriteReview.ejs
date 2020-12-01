@@ -41,19 +41,19 @@
 
 <body>
     <div id="WriteReview-title" style="height:150px; background-color:rgb(175, 248, 238)">
-        <div id="WriteReview-title1"><button onClick="location.href='Main.html'">프로필사진(홈으로)</button> </div>
+        <div id="WriteReview-title1"><button onClick="location.href='/Main'">프로필사진(홈으로)</button> </div>
         <div id="WriteReview-title2">welcome!<br>User 홍길동</div>
     </div>
     <form action="/insertReview" method="post">
         <div id="WriteReview-write"><br><br>
             <b>Choose Your History</b>
-            <select name="historyNum" style="width:80px;">
+            <select name="restInfo" style="width:80px;">
                 <% for(i = 0; i< length; i++) { %>
                 <option value=<%=resInfo[i] %>><%=resInfo[i] %></option>
                 <% } %>
             </select><br>
             <b>Rating:</b> <input id="review-rate" name="rate" type="text">
-            <textarea id="review-content" name="content" rows="5"></textarea><br>
+            <textarea id="review-content" name="comment" rows="5"></textarea><br>
             <button id="review-submit-button">submit</button>
             <br><br></div>
     </form>

@@ -358,59 +358,42 @@ app.get("/writeReview", function (req, res) {
 app.post("/insertReview", function (req, res) {
 
   var rate = req.body.rate;
-  var userid = req.session.userid;
-   var contentString = req.session.cartContent;
-  contentString = contentString.substr(1);
+  var resSessionBlock = req.body.restInfo;
+  var comment = req.body.comment;
+
   try {
    connection.query(
-      `INSERT INTO temp_review(userId, restaurantId, date, rate, content) VALUES (?,?,?,?,?)`,
+      `INSERT INTO temp_review(resBlock, userId, rate, comment) VALUES (?,?,?,?)`,
       //userId와 userNum은 session에서 넘어온 정보를 가지고 넣어야함
-      [userid, req.session.bistroid, req.session.time, rate, contentString]
+      [resSessionBlock, req.session.userid, rate, comment]
     );
   } catch (exception) {
     console.log("오류 발생");
     console.log(exception);
   }
 
-  let result = connection.query(`SELECT userId, content, rate, date
-  FROM temp_review `);
-  //세션정보에 userNum 넘어오면 WHERE문에 A.userNum = H.userNum 추가
-  let end = result.length;
-  let userIdjs = [];
-  let contentjs = [];
-  let ratejs = [];
-  let datejs = [];
-  let i = 0;
-  while (i < end) {
-    userIdjs[i] = result[i].userId;
-    contentjs[i] = result[i].content;
-    ratejs[i] = result[i].rate;
-    datejs[i] = result[i].date;
-    i++;
-  }
-  res.render("Review", {
-    length: end,
-    userId: userIdjs,
-    content: contentjs,
-    rate: ratejs,
-    date: datejs
-  });
+  res.redirect("/review");
 });
 
 //your last reviews
 app.get("/review", function (req, res) {
-  let result = connection.query(`SELECT R.userId, R.content, R.rate
-  FROM REVIEW AS R `);
+
+  var rwsql = `select userId, comment, rate, resBlock from temp_review where resBlock LIKE ?`;
+  var rwsqljs =('%'+req.session.bistroid+'%');
+
+   let result = connection.query(rwsql,[rwsqljs]);
   //세션정보에 userNum 넘어오면 WHERE문에 A.userNum = H.userNum 추가
   let end = result.length;
   let userIdjs = [];
   let contentjs = [];
   let ratejs = [];
+  let resBlockb = [];
   let i = 0;
   while (i < end) {
     userIdjs[i] = result[i].userId;
-    contentjs[i] = result[i].content;
+    contentjs[i] = result[i].comment;
     ratejs[i] = result[i].rate;
+    resBlockb[i] = result[i].resBlock;
     i++;
   }
   res.render("Review", {
@@ -418,28 +401,33 @@ app.get("/review", function (req, res) {
     userId: userIdjs,
     content: contentjs,
     rate: ratejs,
+    date: resBlockb
   });
 });
 
 //view order history
 app.get("/viewHistory", function (req, res) {
   var sqlquery =
-    "SELECT date, content, totalPrice FROM temp_history WHERE userId=?";
+    "SELECT date, content, totalPrice, restaurantId  FROM temp_history WHERE userId=?";
   let result = connection.query(sqlquery, [req.session.userid]);
   //세션정보에 userNum 넘어오면 WHERE문에 A.userNum = H.userNum 추가
   let end = result.length;
   let contentjs = [];
   let totalpricejs = [];
+  let datejs =[];
+  let residjs =[];
   let i = 0;
   while (i < end) {
     contentjs[i] = result[i].content;
     totalpricejs[i] = result[i].totalPrice;
-
+    datejs[i] = result[i].date;
+    residjs[i] = result[i].restaurantId;
     i++;
   }
   res.render("OrderHistory", {
     length: end,
-    date: req.session.time,
+    resid: residjs, 
+    date: datejs,
     content: contentjs,
     totalprice: totalpricejs,
   });
