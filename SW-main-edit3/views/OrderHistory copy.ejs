@@ -1,56 +1,45 @@
-<!DOCTYPE html>
 <html>
     <head>
+        <meta charset = "utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Review</title>
+        <title>OrderHistory</title>
         <style>
-            #Review-title1{
+            #OrderHistory-title1{
                 border:1px solid;
                 float:left;
                 margin-left:10px;
                 margin-right:50px;
             }
-            #Review-title2{
+            #OrderHistory-title2{
                 border:1px solid;
                 width : 200px;
                 float:left;
                 text-align:center;
-                background-color: rgb(34, 179, 130);
+                background-color: aquamarine;
             }
-            #Review-history{
+            #OrderHistory-history{
                 border:20px solid rgb(200, 200, 200);
                 padding-left:20px;
                 padding-right:20px;
             }
-            #ask-review{
-                margin-bottom:50px;
+            #review1{
+                margin-top:10px;
             }
-            #review-button{
+            #first{
+                margin-bottom:10px;
+            }
+            #history-date1{
+                float:middle;
+            }
+            #history-review1{
                 float:right;
-                margin-right:100px;
             }
-            #review1-1{
+            #resid{
                 float:left;
             }
-            #review1-2{
-                width:91.4%;
-                height:100%;
-                float:left;
-            }
-            #review1-name{
-                float:left;
-                background-color: aquamarine;
-                margin-right:10px;
-            }
-            #review1-2-2{
-                float:right;
-                margin-right:100px;
-            }
-            img{
-                object-fit: contain;
-                width: 100%;
-                height: 100%;
+            #second{
+                margin-bottom:10px;
             }
 
             .bgimg {
@@ -63,6 +52,13 @@
                margin : 8px 0;
                border:none;
             }
+
+            #Review-title1{
+                border:1px solid;
+                float:left;
+                margin-left:10px;
+                margin-right:50px;
+            }
         </style>
     </head>
     <body>
@@ -71,7 +67,8 @@
 
         </div>
 
-        <div id = "Review-history"><br><br>
+        <div id = "OrderHistory-history"><br><br>
+            
             <b>Your Past Order</b><br>
             <% var bo = 'false'; %>
             <!--리뷰데이터 테이블 조회 후 넣는것들-->
@@ -95,10 +92,8 @@
                 Total : <%=totalprice[i] %> won
             </div><br>
             <% } %>
-            <br><br>
-        </div>
-      
-    </div>
+
+        <br><br></div>
     </body>
     </body>
 </html>
