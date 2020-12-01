@@ -259,7 +259,13 @@ app.post('/loginFunc', function (req, res) {
 
 });
 
-
+//로그아웃
+app.get("/logout", function (req, res) {
+    req.session.destroy(function () {
+      req.session;
+    });
+    res.redirect("/login");
+  });
 
 
 //이미지 경로

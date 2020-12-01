@@ -21,14 +21,14 @@
             </div>
         </div>
         <hr>
-        
+
         <div class="w3-row">
             <div class="w3-col s3">
                 <img src="images/edit.png" style="width:100%">
             </div>
             <div class="w3-col s9 w3-container">
                 <h3><a a href="edit_menu" style="text-decoration:none">메뉴 편집</a></h3>
- 
+
             </div>
         </div>
         <hr>
@@ -38,7 +38,7 @@
             </div>
             <div class="w3-col s9 w3-container">
                 <h3><a a href="review_confirm" style="text-decoration:none">리뷰 확인</a></h3>
-              
+
             </div>
         </div>
         <!--
@@ -47,10 +47,18 @@
                 <img src="images/logout.png" style="width:100%">
             </div>
             <div class="w3-col s9 w3-container">
-                <h3><a a href="16" style="text-decoration:none">로그 아웃</a></h3>                
+                
+                <form action="/logout" method="get">
+                    <button type="submit">Log out</button>
+                </form>
+                <h3><a a href="16" style="text-decoration:none">로그 아웃</a></h3>
+                           
             </div>
         </div>-->
     </div>
+    <form action="/logout" method="get">
+        <button id="review_button" class="w3-button w3-black w3-border" type="submit">로그 아웃</button>
+    </form>
 </body>
 
 </html>
