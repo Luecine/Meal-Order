@@ -50,15 +50,25 @@
                 width: 100%;
                 height: 100%;
             }
+
+            .bgimg {
+               background-image: url("bolt.jpg");
+               min-height: 100%;
+               background-position: center;
+               background-size: cover;
+               height : 150px;
+               padding : 14px 20px;
+               margin : 8px 0;
+               border:none;
+            }
         </style>
     </head>
     <body>
-        <div id = "Review-title" style = "height:150px; background-color: #4CAF50;color: blcak;padding: 14px 20px; margin: 8px 0;   border: none;
-        cursor: pointer;
-        width: 100%;">
-            <div id = "Review-title1"><button onClick="location.href='Main.html'">프로필사진(홈으로)</button> </div>
-            <div id = "Review-title2">welcome!<br>User 홍길동</div>
+        <div class="bgimg w3-display-container w3-animate-opacity" >
+            <div id = "Review-title1"><button onClick="location.href='/main'">홈으로</button> </div>
+
         </div>
+
         <div id = "Review-history"><br><br>
             <form action="/viewHistory" method="get">
                 <div id ="ask-history"><b>&nbsp;View your own History for this restaurant</b>

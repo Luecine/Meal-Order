@@ -116,7 +116,7 @@ CREATE table temp_history (
        content      VARCHAR(100),
        totalPrice    INT,
         restaurantId TEXT
-		);
+);
 
 
 CREATE table temp_review (
