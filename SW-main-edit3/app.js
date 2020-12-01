@@ -69,9 +69,6 @@ app.get("/", function (req, res) {
 //login page
 app.get("/login", function (req, res) {
   let loginMsg = "";
-  var newDate = new Date();
-  var time = newDate.toFormat("YYYY-MM-DD HH24:MI:SS");
-  req.session.time = time;
   res.render("login.ejs", { loginMsg: loginMsg });
 });
 
@@ -182,7 +179,6 @@ app.get("/duplicateFunc", function (req, res) {
 app.get("/main", function (req, res) {
   console.log(req.session.isLogined);
   connection.query(`DELETE FROM temp_cart`);
-  console.log(req.session.time);
   res.render("main.ejs", { user: req.session.userid });
 });
 
@@ -277,6 +273,9 @@ app.get("/creditcard", (req, res) => {
 //check creditcard auth
 app.get("/iamport", (req, res) => {
   console.log("주문성공했습니다");
+  var newDate = new Date();
+  var time = newDate.toFormat("YYYY-MM-DD HH24:MI:SS");
+  req.session.time = time;
   var contentString = req.session.cartContent;
   contentString = contentString.substr(1);
   connection.query(
