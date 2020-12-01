@@ -53,7 +53,8 @@ app.use(session({
 
 //매니저 메뉴 페이지
 app.get('/manager_menu', function (req, res) {
-    res.render('manager_menu.ejs');
+    console.log(req.session.name)
+    res.render('manager_menu.ejs', {name : req.session.name});
     //res.send('ROOT');
 });
 
@@ -219,12 +220,12 @@ app.post('/loginFunc', function (req, res) {
 
   
 
-  const sql = "SELECT managerid, managerPw FROM Manager";
+  const sql = "SELECT managerid, managerPw, name FROM Manager";
   conn.query(sql, function(err, rows, fields){
     if(err) throw err
     else{
         for(var i = 0; i < rows.length; i++){   
-            managerInfo.push( {managerid:rows[i].managerid, managerPw: rows[i].managerPw})
+            managerInfo.push( {managerid:rows[i].managerid, managerPw: rows[i].managerPw, name : rows[i].name})
         }
         
         console.log(managerInfo)
@@ -234,18 +235,26 @@ app.post('/loginFunc', function (req, res) {
                 return true;
             }
         })
-
+           
+        let managerIndex = managerInfo.findIndex(function(element){
+            if(element.managerid === inputId && element.managerPw===inputPw){
+                return true
+            }
+        })
+        
         console.log(flag)
+        console.log(managerInfo[managerIndex])
 
         if(inputId === "") {
             res.render('login.ejs', {loginMsg:""})
         } else {
             if(flag){
-                req.session.managerid = inputId
-                req.session.managerPw = inputPw
+                req.session.managerid = managerInfo[managerIndex].managerid
+                req.session.managerPw = managerInfo[managerIndex].managerPw
+                req.session.name = managerInfo[managerIndex].name
                 req.session.isLogined = true
 
-                console.log(inputId, inputPw)
+                console.log(managerInfo[managerIndex].name)
                 req.session.save(function(){
                     res.redirect('/manager_menu')
                 })

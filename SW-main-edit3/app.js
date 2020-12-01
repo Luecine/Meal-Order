@@ -84,14 +84,14 @@ app.post("/loginFunc", function (req, res) {
 
   const userInfo = [];
 
-  const sql = "SELECT userid, userPw from account";
+  const sql = "SELECT userid, userPw, name from account";
   conn.query(sql, function (err, rows, fields) {
     if (err) throw err;
     else {
       for (var i = 0; i < rows.length; i++) {
-        userInfo.push({ userid: rows[i].userid, userPw: rows[i].userPw });
+        userInfo.push({ userid: rows[i].userid, userPw: rows[i].userPw, name : rows[i].name });
       }
-      //console.log(userInfo)
+      console.log(userInfo)
 
       let flag = userInfo.some(function (element) {
         if (element.userid === inputId && element.userPw === inputPw) {
@@ -99,12 +99,22 @@ app.post("/loginFunc", function (req, res) {
         }
       }); //check if there's a match
 
+      let userIndex = userInfo.findIndex(function(element){
+        if (element.userid === inputId && element.userPw === inputPw) {
+          return true;
+        }
+      })
+
+
+
       if (inputId === "") {
         res.render("login.ejs", { loginMsg: "" });
       } else {
         if (flag) {
-          req.session.userid = inputId;
-          req.session.userPw = inputPw;
+          req.session.userid = userInfo[userIndex].userid
+          req.session.userPw = userInfo[userIndex].userPw
+          req.session.name = userInfo[userIndex].name
+          console.log(userInfo[userIndex].name)
           req.session.isLogined = true;
 
           req.session.save(function () {
@@ -169,10 +179,11 @@ app.get("/duplicateFunc", function (req, res) {
       if (flag) {
         res.render("register.ejs", { duplicateMsg: "중복되는 ID입니다." });
       } else {
-        res.render("register.ejs", { duplicateMsg: "회원가입되었습니다." });
-        sql = `insert into ACCOUNT(userId, name, userPw, isManager) values (?, ?, ?, ?)`;
+        //res.render("register.ejs", { duplicateMsg: "회원가입되었습니다." });
+        res.redirect('/login')
+        sql = `insert into ACCOUNT(userId, name, userPw) values (?, ?, ?)`;
 
-        conn.query(sql, [inputId, inputName, inputPw, 0]);
+        conn.query(sql, [inputId, inputName, inputPw]);
       }
     }
   });
@@ -183,7 +194,8 @@ app.get("/main", function (req, res) {
   console.log(req.session.isLogined);
   connection.query(`DELETE FROM temp_cart`);
   console.log(req.session.time);
-  res.render("main.ejs", { user: req.session.userid });
+  console.log(req.session.name)
+  res.render("main.ejs", { name: req.session.name });
 });
 
 app.get("/logout", function (req, res) {
@@ -262,6 +274,7 @@ app.get("/purchase", (req, res) => {
     console.log(req.session.cartContent);
     res.render("purchaseTemplate", {
       length: end2,
+      name: namejs2,
       name: namejs2,
       number: numberjs2,
       total: totaljs2,
