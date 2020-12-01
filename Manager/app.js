@@ -200,8 +200,6 @@ app.get('/duplicateFunc', function(req, res){
             }  
         }
     })
-
-
 })
 
 
