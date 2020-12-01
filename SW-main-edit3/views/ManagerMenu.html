@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ManagerMenu</title>
+        <style>
+            button{
+                width:200px;
+                height:100px;
+                background-color:cornflowerblue;
+            }
+            #ManagerMenu-title{
+                text-align: center;
+            }
+            #ManagerMenu-title2{
+                padding-left:20px;
+            }
+            #ManagerMenu-mainMenu{
+                border:20px solid rgb(200, 200, 200);
+                text-align: center;
+                padding-top:20px;
+                padding-bottom:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "ManagerMenu-title" style = "height:150px; background-color:cornflowerblue">
+            <button onClick="location.href='Main.html'">홈으로</button>
+        </div>
+        <div id = "ManagerMenu-title2"><b>Manager</b><br><br>홍길동</div>
+        
+        <div id = "ManagerMenu-mainMenu">
+            <button class = "ManagerMenu-button1" onClick="location.href='ManagerMenuData.html'">데이터</button><br><br>
+            <button class = "ManagerMenu-button2" onClick="location.href='ManagerMenuEdit.html'">메뉴 편집</button><br><br>
+            <button class = "ManagerMenu-button3" onClick="location.href='ManagerMenuCheck.html'">리뷰 확인</button><br><br>
+            <button class = "ManagerMenu-button4" onClick="location.href='ManagerMenuLogout.html'">Log out</button>
+        </div>
+    </body>
+</html>
