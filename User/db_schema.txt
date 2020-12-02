@@ -50,20 +50,7 @@ CREATE TABLE ITEM
     primary key(name)
 );
 
-CREATE TABLE ORDER_ITEM_Detail
-(
-	cartNum              INT  NOT NULL ,
-	itemNum              INT  NOT NULL ,
-	count                INT  NOT NULL ,
 
-    primary key(cartNum, itemNum),
-    constraint cartConstraint foreign key (cartNum) references CART(cartNum),
-    constraint itemConstraint foreign key(itemNum) references ITEM(itemNum)
-);
-
-alter table CART
-add constraint itemNumConstraint 
-foreign key(itemNum) references ORDER_ITEM_Detail(itemNum);
 
 
 CREATE TABLE REVIEW
