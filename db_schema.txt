@@ -3,8 +3,8 @@ CREATE TABLE ACCOUNT
 	userId                VARCHAR(20)  NOT NULL ,
 	name                  VARCHAR(20)  NULL ,
 	userPw                VARCHAR(20)  NOT NULL ,
-	userNum               INT  NOT NULL ,
-	isManager             BOOLEAN  NOT NULL, 
+	userNum               INT  NOT NULL,
+	 
 
     primary key (userId, userNum)
 );
@@ -42,11 +42,11 @@ CREATE TABLE CART
 CREATE TABLE ITEM
 (
 	name                  VARCHAR(20)  NOT NULL ,
-	price                 INT  NOT NULL ,
-	
+	price                 INT  NOT NULL,
 
     primary key(name)
 );
+
 
 
 CREATE TABLE REVIEW
@@ -87,4 +87,26 @@ CREATE table temp_review (
       resBlock      TEXT,
       userId      VARCHAR(20),
        rate    INT,
-       comment    VARCHAR(100));
+       comment    VARCHAR(100)
+);
+
+CREATE TABLE Manager
+(
+	managerId                VARCHAR(20)  NOT NULL ,
+	name              		 VARCHAR(20)  NULL ,
+	managerPw                VARCHAR(20)  NOT NULL ,
+	managerNum               INT  NOT NULL auto_increment,
+
+    primary key (managerId, managerNum),
+	unique(managerNum)
+);
+
+
+
+
+INSERT INTO Manager (managerId, name, managerPw) VALUES
+(
+	"skyss123",
+	"Lee",
+	"qwer"
+)
