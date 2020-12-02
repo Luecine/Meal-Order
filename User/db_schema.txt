@@ -3,13 +3,11 @@ CREATE TABLE ACCOUNT
 	userId                VARCHAR(20)  NOT NULL ,
 	name                  VARCHAR(20)  NULL ,
 	userPw                VARCHAR(20)  NOT NULL ,
-	userNum               INT  NOT NULL auto_increment,
-	
+	userNum               INT  NOT NULL ,
+	isManager             BOOLEAN  NOT NULL, 
 
-    primary key (userId, userNum),
-	unique(userNum)
+    primary key (userId, userNum)
 );
-
 
 CREATE TABLE FINANCE
 (
@@ -51,11 +49,9 @@ CREATE TABLE ITEM
 );
 
 
-
-
 CREATE TABLE REVIEW
 (
-	reviewNum             INT NOT NULL ,
+	reviewNum             INT NOT NULL AUTO_INCREMENT,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL ,
 	historyNum	 INT NOT NULL,
@@ -67,32 +63,28 @@ CREATE TABLE REVIEW
     constraint reviewConstraint foreign key(userId, userNum, historyNum) references HISTORY(userId, userNum, historyNum) on delete cascade
 );
 
-INSERT INTO account (userId, name, userPw, userNum) VALUES
+CREATE TABLE NOTIFICATION
 (
-	"tollea1234",
-	"Kim",
-	"1234",
-	1
+	notiNum             INT NOT NULL AUTO_INCREMENT,
+	title                     VARCHAR(20)  NOT NULL ,
+	content                VARCHAR(100)  NOT NULL ,
+	date              	  DATE  NULL ,
+ 
+    primary key(notiNum)
 );
 
+create table temp_cart(name varchar(20), price int, number int);
 
-CREATE TABLE Manager
-(
-	managerId                VARCHAR(20)  NOT NULL ,
-	name              		 VARCHAR(20)  NULL ,
-	managerPw                VARCHAR(20)  NOT NULL ,
-	managerNum               INT  NOT NULL auto_increment,
-
-    primary key (managerId, managerNum),
-	unique(managerNum)
-);
+CREATE table temp_history (
+       userId      VARCHAR(20),
+       date        TEXT,
+       content      VARCHAR(100),
+       totalPrice    INT,
+        restaurantId TEXT);
 
 
-
-
-INSERT INTO Manager (managerId, name, managerPw) VALUES
-(
-	"skyss123",
-	"Lee",
-	"qwer"
-)
+CREATE table temp_review (
+      resBlock      TEXT,
+      userId      VARCHAR(20),
+       rate    INT,
+       comment    VARCHAR(100));
