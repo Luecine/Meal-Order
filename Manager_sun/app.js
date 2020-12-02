@@ -23,7 +23,7 @@ const connection = new mysql({
     host: "localhost",
     user: "root",
     password: "",
-    database: "swteam",
+    database: "clerkfree",
 });
 
 
