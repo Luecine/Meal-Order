@@ -1,4 +1,7 @@
 const express = require('express');
+var moment = require('moment');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 const app = express();
 const db_config = require(__dirname + '/config/database.js');
 const conn = db_config.init();
@@ -80,6 +83,55 @@ app.get('/review_confirm',function(req,res){
         else res.render('review_confirm.ejs', {review : rows});
     });
 });
+
+//공지확인
+app.get('/notification',function(req,res){
+    let sql = 'SELECT * FROM NOTIFICATION';    
+    conn.query(sql, function (err, rows, fields) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else res.render('notification.ejs', {notification : rows});
+    });
+});
+
+app.get('/write_notification', function (req, res) {
+    res.render('write_notification.ejs');
+});
+
+//공지작성
+app.post('/post_noti',function(req,res){
+    let _url = req.url;
+    let queryData = url.parse(_url, true).query;
+    var title = req.body.title;
+    var content = req.body.content;
+     
+    var date = moment().format('YYYY-MM-DD HH:mm:ss');
+    console.log(title, content, date);
+    try{
+        let result = connection.query(
+          `INSERT INTO NOTIFICATION(title, content, date) VALUES (?,?,?)`,
+          [title,content,date]
+        );
+        console.log('Insert Notification Suceess!');
+      }
+      catch(exception){
+        console.log('오류 발생');
+        console.log(exception);
+      }
+      let sql = 'SELECT * FROM NOTIFICATION'; 
+      conn.query(sql, function (err, rows, fields) {
+          if(err) console.log('query is not excuted. select fail...\n' + err);
+          else res.render('notification.ejs', {notification : rows});
+      });
+});
+
+
+//공지삭제
+app.get('/delete_noti/:notiNum', function(req,res){
+    conn.query('delete from NOTIFICATION where notiNum=?', [req.params.notiNum], function() {
+        res.redirect('/notification');
+        });   
+});
+
 
 //매출량 페이지 sale
 app.get('/sale',function(req,res){
@@ -191,15 +243,18 @@ app.get('/duplicateFunc', function(req, res){
             if(flag){
                 res.render('register.ejs', {duplicateMsg:"중복되는 ID입니다."})
             } else {
-                //res.render('register.ejs', {duplicateMsg:"회원가입되었습니다."})
-                res.send('<script>alert("회원가입 성공");location.href="/login";</script>');
-                //res.redirect("/login");
+        
+                
+                res.send('<script> alert("회원가입 성공"); location.href="/login"; </script>')
                 sql = `insert into Manager(managerId, name, managerPw) values (?, ?, ?)`
 
                 conn.query(sql,[inputId,inputName, inputPw])
+        
             }  
         }
     })
+
+
 })
 
 
@@ -255,7 +310,7 @@ app.post('/loginFunc', function (req, res) {
   
                   console.log(managerInfo[managerIndex].name)
                   req.session.save(function(){
-                      res.redirect('/manager_menu')
+                      res.send('<script> alert("로그인 성공"); location.href="/manager_menu"; </script>')
                   })
               } else {
                   res.render('login.ejs', {loginMsg:"등록되지 않은 ID 또는 PW입니다"})
@@ -267,7 +322,7 @@ app.post('/loginFunc', function (req, res) {
     })
   
   });
-  
+
 
 //로그아웃
 app.get("/logout", function (req, res) {
