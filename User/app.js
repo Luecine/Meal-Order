@@ -193,12 +193,13 @@ app.get("/main", function (req, res) {
   let notification = []
   conn.query(`SELECT notiNum, title, content FROM notification`, function(err, rows, fields){
     rows.forEach((element)=>{
-      notification.push({titie:element.title, content:element.content})
+      notification.push({title:element.title, content:element.content})
     })
 
     console.log(notification)
+    res.render("main.ejs", { name: req.session.name,notification:notification });
   })
-  res.render("main.ejs", { name: req.session.name });
+  
 });
 
 app.get("/logout", function (req, res) {
