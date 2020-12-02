@@ -3,13 +3,11 @@ CREATE TABLE ACCOUNT
 	userId                VARCHAR(20)  NOT NULL ,
 	name                  VARCHAR(20)  NULL ,
 	userPw                VARCHAR(20)  NOT NULL ,
-	userNum               INT  NOT NULL auto_increment,
-	
+	userNum               INT  NOT NULL,
+	 
 
-    primary key (userId, userNum),
-	unique(userNum)
+    primary key (userId, userNum)
 );
-
 
 CREATE TABLE FINANCE
 (
@@ -44,31 +42,18 @@ CREATE TABLE CART
 CREATE TABLE ITEM
 (
 	name                  VARCHAR(20)  NOT NULL ,
-	price                 INT  NOT NULL ,
-	itemNum               INT  NOT NULL ,
+	price                 INT  NOT NULL,
 
-    primary key(itemNum)
+    primary key(name)
 );
 
-CREATE TABLE ORDER_ITEM_Detail
-(
-	cartNum              INT  NOT NULL ,
-	itemNum              INT  NOT NULL ,
-	count                INT  NOT NULL ,
 
-    primary key(cartNum, itemNum),
-    constraint cartConstraint foreign key (cartNum) references CART(cartNum),
-    constraint itemConstraint foreign key(itemNum) references ITEM(itemNum)
-);
 
-alter table CART
-add constraint itemNumConstraint 
-foreign key(itemNum) references ORDER_ITEM_Detail(itemNum);
 
 
 CREATE TABLE REVIEW
 (
-	reviewNum             INT NOT NULL ,
+	reviewNum             INT NOT NULL AUTO_INCREMENT,
 	userId                VARCHAR(20)  NOT NULL ,
 	userNum               INT  NOT NULL ,
 	historyNum	 INT NOT NULL,
@@ -80,14 +65,32 @@ CREATE TABLE REVIEW
     constraint reviewConstraint foreign key(userId, userNum, historyNum) references HISTORY(userId, userNum, historyNum) on delete cascade
 );
 
-INSERT INTO account (userId, name, userPw, userNum) VALUES
+CREATE TABLE NOTIFICATION
 (
-	"tollea1234",
-	"Kim",
-	"1234",
-	1
+	notiNum             INT NOT NULL AUTO_INCREMENT,
+	title                     VARCHAR(20)  NOT NULL ,
+	content                VARCHAR(100)  NOT NULL ,
+	date              	  DATE  NULL ,
+ 
+    primary key(notiNum)
 );
 
+create table temp_cart(name varchar(20), price int, number int);
+
+CREATE table temp_history (
+       userId      VARCHAR(20),
+       date        TEXT,
+       content      VARCHAR(100),
+       totalPrice    INT,
+        restaurantId TEXT);
+
+
+CREATE table temp_review (
+      resBlock      TEXT,
+      userId      VARCHAR(20),
+       rate    INT,
+       comment    VARCHAR(100)
+);
 
 CREATE TABLE Manager
 (
