@@ -1,0 +1,89 @@
+CREATE TABLE ACCOUNT
+(
+	userId                VARCHAR(20)  NOT NULL ,
+	name                  VARCHAR(20)  NULL ,
+	userPw                VARCHAR(20)  NOT NULL ,
+	userNum               INT  NOT NULL ,
+	isManager             BOOLEAN  NOT NULL, 
+
+    primary key (userId, userNum)
+);
+
+CREATE TABLE FINANCE
+(
+	date                  DATE  NULL ,
+	totalProfit           LONG  NULL
+);
+
+
+CREATE TABLE HISTORY
+(
+	userId                VARCHAR(20)  NOT NULL ,
+	userNum               INT  NOT NULL ,
+	historyNum	 INT NOT NULL,
+	date                  DATE  NULL ,
+
+    primary key(userId, userNum, historyNum),
+    constraint idConstraint foreign key(userId, userNum) references ACCOUNT(userId, userNum) on delete cascade
+);
+
+CREATE TABLE CART
+(
+	cartNum              INT  NOT NULL ,
+	totalPrice           INT  NULL ,
+	userId                VARCHAR(20)  NOT NULL ,
+	userNum               INT  NOT NULL,
+    primary key(cartNum)
+    
+);
+
+
+
+CREATE TABLE ITEM
+(
+	name                  VARCHAR(20)  NOT NULL ,
+	price                 INT  NOT NULL ,
+	itemNum               INT  NOT NULL ,
+
+    primary key(itemNum)
+);
+
+CREATE TABLE ORDER_ITEM_Detail
+(
+	cartNum              INT  NOT NULL ,
+	itemNum              INT  NOT NULL ,
+	count                INT  NOT NULL ,
+
+    primary key(cartNum, itemNum),
+    constraint cartConstraint foreign key (cartNum) references CART(cartNum),
+    constraint itemConstraint foreign key(itemNum) references ITEM(itemNum)
+);
+
+alter table CART
+add constraint itemNumConstraint 
+foreign key(itemNum) references ORDER_ITEM_Detail(itemNum);
+
+
+CREATE TABLE REVIEW
+(
+	reviewNum             INT NOT NULL AUTO_INCREMENT,
+	userId                VARCHAR(20)  NOT NULL ,
+	userNum               INT  NOT NULL ,
+	historyNum	 INT NOT NULL,
+	content               VARCHAR(100)  NOT NULL ,
+	date                  DATE  NULL ,
+	rate                  INT  NULL,
+
+    primary key(reviewNum, userId, userNum, historyNum),
+    constraint reviewConstraint foreign key(userId, userNum, historyNum) references HISTORY(userId, userNum, historyNum) on delete cascade
+);
+
+CREATE TABLE NOTIFICATION
+(
+	notiNum             INT NOT NULL AUTO_INCREMENT,
+	title                     VARCHAR(20)  NOT NULL ,
+	content                VARCHAR(100)  NOT NULL ,
+	date              	  DATE  NULL ,
+ 
+    primary key(notiNum)
+);

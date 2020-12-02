@@ -69,9 +69,6 @@ app.get("/", function (req, res) {
 //login page
 app.get("/login", function (req, res) {
   let loginMsg = "";
-  var newDate = new Date();
-  var time = newDate.toFormat("YYYY-MM-DD HH24:MI:SS");
-  req.session.time = time;
   res.render("login.ejs", { loginMsg: loginMsg });
 });
 
@@ -84,14 +81,14 @@ app.post("/loginFunc", function (req, res) {
 
   const userInfo = [];
 
-  const sql = "SELECT userid, userPw from account";
+  const sql = "SELECT userid, userPw, name from account";
   conn.query(sql, function (err, rows, fields) {
     if (err) throw err;
     else {
       for (var i = 0; i < rows.length; i++) {
-        userInfo.push({ userid: rows[i].userid, userPw: rows[i].userPw });
+        userInfo.push({ userid: rows[i].userid, userPw: rows[i].userPw, name : rows[i].name });
       }
-      //console.log(userInfo)
+      console.log(userInfo)
 
       let flag = userInfo.some(function (element) {
         if (element.userid === inputId && element.userPw === inputPw) {
@@ -99,12 +96,22 @@ app.post("/loginFunc", function (req, res) {
         }
       }); //check if there's a match
 
+      let userIndex = userInfo.findIndex(function(element){
+        if (element.userid === inputId && element.userPw === inputPw) {
+          return true;
+        }
+      })
+
+
+
       if (inputId === "") {
         res.render("login.ejs", { loginMsg: "" });
       } else {
         if (flag) {
-          req.session.userid = inputId;
-          req.session.userPw = inputPw;
+          req.session.userid = userInfo[userIndex].userid
+          req.session.userPw = userInfo[userIndex].userPw
+          req.session.name = userInfo[userIndex].name
+          console.log(userInfo[userIndex].name)
           req.session.isLogined = true;
 
           req.session.save(function () {
@@ -169,10 +176,11 @@ app.get("/duplicateFunc", function (req, res) {
       if (flag) {
         res.render("register.ejs", { duplicateMsg: "중복되는 ID입니다." });
       } else {
-        res.render("register.ejs", { duplicateMsg: "회원가입되었습니다." });
-        sql = `insert into ACCOUNT(userId, name, userPw, isManager) values (?, ?, ?, ?)`;
+        //res.render("register.ejs", { duplicateMsg: "회원가입되었습니다." });
+        res.send('<script>alert("회원가입 성공");location.href="/login";</script>');
+        sql = `insert into ACCOUNT(userId, name, userPw) values (?, ?, ?)`;
 
-        conn.query(sql, [inputId, inputName, inputPw, 0]);
+        conn.query(sql, [inputId, inputName, inputPw]);
       }
     }
   });
@@ -182,8 +190,7 @@ app.get("/duplicateFunc", function (req, res) {
 app.get("/main", function (req, res) {
   console.log(req.session.isLogined);
   connection.query(`DELETE FROM temp_cart`);
-  console.log(req.session.time);
-  res.render("main.ejs", { user: req.session.userid });
+  res.render("main.ejs", { name: req.session.name });
 });
 
 app.get("/logout", function (req, res) {
@@ -277,6 +284,9 @@ app.get("/creditcard", (req, res) => {
 //check creditcard auth
 app.get("/iamport", (req, res) => {
   console.log("주문성공했습니다");
+  var newDate = new Date();
+  var time = newDate.toFormat("YYYY-MM-DD HH24:MI:SS");
+  req.session.time = time;
   var contentString = req.session.cartContent;
   contentString = contentString.substr(1);
   connection.query(
@@ -346,7 +356,7 @@ app.get("/writeReview", function (req, res) {
   let restaurantInfo = [];
   let i = 0;
   while (i < end) {
-    restaurantInfo[i] = result[i].restaurantId + result[i].date;
+    restaurantInfo[i] = result[i].restaurantId + " " + result[i].date;
     console.log(result[i].restaurantId + result[i].date);
     i++;
   }

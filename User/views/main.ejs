@@ -1,12 +1,15 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <title>User menu</title>
     <style>
       body {
-        padding: 80px;
+        padding: 20px;
         text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
       }
+
       #user_container {
         margin-top: 50px;
         margin-bottom: 50px;
@@ -69,13 +72,26 @@
         width: 100%;
         box-sizing: border-box;
       }
+
+       .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            }
+
+            img.avatar {
+            width: 50%;
+            border-radius: 60%;
+            }
     </style>
   </head>
   <body>
     <div id="whole">
-      <div id="user_container">
-        <label>Welcome! User: <%= user %> </label>
-      </div>
+      
+        <div class="imgcontainer">
+          <img src="avatar.jpg" alt="Avatar" class="avatar">
+        </div>
+        <label>Welcome! User: <%= name %> </label>
+    
       <div id="titlecontainer">
         <h1 id="menu_banner">User Menu</h1>
       </div>
@@ -89,6 +105,13 @@
         <div id="history">
           <form action="/viewHistory" method="get">
             <button id="history_button" type="submit">History</button>
+          </form>
+        </div>
+
+
+        <div id="review">
+          <form action="/writeReview" method="get">
+            <button id="review_button" type="submit">Write Review</button>
           </form>
         </div>
 
