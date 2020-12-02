@@ -17,8 +17,8 @@
         font-style: italic;
       }
       #titlecontainer {
-        margin-top: 50px;
-        margin-bottom: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
       #review_button {
         background-color: #4caf50; /* Green background */
@@ -76,57 +76,84 @@
        .imgcontainer {
             text-align: center;
             margin: 24px 0 12px 0;
-            }
+        }
 
-            img.avatar {
+        img.avatar {
             width: 50%;
             border-radius: 60%;
-            }
+        }
+
+
+        
+    
+
+        .notification__scroll
+        {
+          margin-top: 20px;
+          height:80px;
+          width:100%;
+          border:1px solid #ccc;
+          font:16px/26px Georgia, Garamond, Serif;
+          overflow:auto;
+        }
+
+
+
     </style>
   </head>
   <body>
     <div id="whole">
       
-        <div class="imgcontainer">
-          <img src="avatar.jpg" alt="Avatar" class="avatar">
+      <div class="imgcontainer">
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+      </div>
+      <label>Welcome! User: <%= name %> </label>
+      <div class="notification__scroll">
+          
+      </div>
+      
+
+     
+        <div id="titlecontainer">
+          <h1 >User Menu</h1>
         </div>
-        <label>Welcome! User: <%= name %> </label>
+        <div class="btn_group">
+          <div id="order">
+            <form action="/order" method="get">
+              <button id="order_button" type="submit">Order</button>
+            </form>
+          </div>
+  
+          <div id="history">
+            <form action="/viewHistory" method="get">
+              <button id="history_button" type="submit">History</button>
+            </form>
+          </div>
+  
+  
+          <div id="review">
+            <form action="/writeReview" method="get">
+              <button id="review_button" type="submit">Write Review</button>
+            </form>
+          </div>
+  
+          <div id="review">
+            <form action="/review" method="get">
+              <button id="review_button" type="submit">Current Restaurant Review</button>
+            </form>
+          </div>
+  
+          <div id="logout">
+            <form action="/logout" method="get">
+              <button id="review_button" type="submit">Log out</button>
+            </form>
+          </div>
+          
+        </div>
+
     
-      <div id="titlecontainer">
-        <h1 id="menu_banner">User Menu</h1>
-      </div>
-      <div class="btn_group">
-        <div id="order">
-          <form action="/order" method="get">
-            <button id="order_button" type="submit">Order</button>
-          </form>
-        </div>
 
-        <div id="history">
-          <form action="/viewHistory" method="get">
-            <button id="history_button" type="submit">History</button>
-          </form>
-        </div>
-
-
-        <div id="review">
-          <form action="/writeReview" method="get">
-            <button id="review_button" type="submit">Write Review</button>
-          </form>
-        </div>
-
-        <div id="review">
-          <form action="/review" method="get">
-            <button id="review_button" type="submit">Current Restaurant Review</button>
-          </form>
-        </div>
-
-        <div id="logout">
-          <form action="/logout" method="get">
-            <button id="review_button" type="submit">Log out</button>
-          </form>
-        </div>
-      </div>
+   
     </div>
   </body>
 </html>

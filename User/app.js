@@ -190,6 +190,14 @@ app.get("/duplicateFunc", function (req, res) {
 app.get("/main", function (req, res) {
   console.log(req.session.isLogined);
   connection.query(`DELETE FROM temp_cart`);
+  let notification = []
+  conn.query(`SELECT notiNum, title, content FROM notification`, function(err, rows, fields){
+    rows.forEach((element)=>{
+      notification.push({titie:element.title, content:element.content})
+    })
+
+    console.log(notification)
+  })
   res.render("main.ejs", { name: req.session.name });
 });
 
