@@ -45,9 +45,9 @@ CREATE TABLE ITEM
 (
 	name                  VARCHAR(20)  NOT NULL ,
 	price                 INT  NOT NULL ,
-	itemNum               INT  NOT NULL ,
+	
 
-    primary key(itemNum)
+    primary key(name)
 );
 
 CREATE TABLE ORDER_ITEM_Detail
