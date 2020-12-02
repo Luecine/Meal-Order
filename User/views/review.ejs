@@ -1,93 +1,123 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Review</title>
-        <style>
-            #Review-title1{
-                border:1px solid;
-                float:left;
-                margin-left:10px;
-                margin-right:50px;
-            }
-            #Review-title2{
-                border:1px solid;
-                width : 200px;
-                float:left;
-                text-align:center;
-                background-color: aquamarine;
-            }
-            #Review-history{
-                border:20px solid rgb(200, 200, 200);
-                padding-left:20px;
-                padding-right:20px;
-            }
-            #ask-review{
-                margin-bottom:50px;
-            }
-            #review-button{
-                float:right;
-                margin-right:100px;
-            }
-            #review1-1{
-                float:left;
-            }
-            #review1-2{
-                width:91.4%;
-                height:100%;
-                float:left;
-            }
-            #review1-name{
-                float:left;
-                background-color: aquamarine;
-                margin-right:10px;
-            }
-            #review1-2-2{
-                float:right;
-                margin-right:100px;
-            }
-            img{
-                object-fit: contain;
-                width: 100%;
-                height: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <div id = "Review-title" style = "height:150px; background-color:rgb(175, 248, 238)">
-            <div id = "Review-title1"><button onClick="location.href='Main.html'">프로필사진(홈으로)</button> </div>
-            <div id = "Review-title2">welcome!<br>User 홍길동</div>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Review</title>
+    <style>
+        #Review-title1 {
+            border: 1px solid;
+            float: left;
+            margin-left: 10px;
+            margin-right: 50px;
+        }
+
+        #Review-title2 {
+            border: 1px solid;
+            width: 200px;
+            float: left;
+            text-align: center;
+            background-color: rgb(34, 179, 130);
+        }
+
+        #Review-history {
+            border: 20px solid rgb(200, 200, 200);
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #ask-review {
+            margin-bottom: 50px;
+        }
+
+        #review-button {
+            float: right;
+            margin-right: 100px;
+        }
+
+        #review1-1 {
+            float: left;
+        }
+
+        #review1-2 {
+            width: 91.4%;
+            height: 100%;
+            float: left;
+        }
+
+        #review1-name {
+            float: left;
+            background-color: aquamarine;
+            margin-right: 10px;
+        }
+
+        #review1-2-2 {
+            float: right;
+            margin-right: 100px;
+        }
+
+        img {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bgimg {
+            background-image: url("bolt.jpg");
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+            height: 150px;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgimg w3-display-container w3-animate-opacity">
+        <div id="Review-title1"><button onClick="location.href='/main'">홈으로</button> </div>
+        <div style=" margin-top: 50px; margin-bottom: 50px; text-align: center;">
+            <h1>Restaurant Review</h1>
         </div>
-        <div id = "Review-history"><br><br>
-            <form action="/viewHistory" method="get">
-                <div id ="ask-history"><b>&nbsp;View your own History for this restaurant</b>
-                    <button id="history-button">Your History</button><br>
-                </div>
-            </form>
-            <!--리뷰마다 들어갈 것들-->
-            <% for(i = 0; i< length; i++) { %>
-            <div id ="review1">
-                <div id ="review1-1">
-                    <img src="images/profile.png" alt="">
-                </div>
-                <div id ="review1-2">
-                    <div id ="review1-2-1">
-                        <div id ="review1-2-1-1">
-                            <div id = "review1-name">
-                                <%=userId[i] %>
-                            </div>
-                            <div id = "review1-rate">
-                                rate : <%=rate[i] %>
-                            </div>
+    </div>
+
+    <div id="Review-history"><br>
+        <form action="/viewHistory" method="get">
+            <div id="ask-history">
+              About This Restaurant...
+            </div>
+        </form>
+        <!--리뷰마다 들어갈 것들-->
+        <% for(i = 0; i< length; i++) { %>
+        <div id="review1">
+            <div id="review1-1">
+                <img src="images/profile.png" alt="">
+            </div>
+            <div id="review1-2">
+                <div id="review1-2-1">
+                    <div id="review1-2-1-1">
+                        <div id="review1-name">
+                            <%=userId[i] %>
+                            <%=date[i] %>
                         </div>
-                        <div id ="review1-2-1-2">
-                            <%=content[i] %>
+                        <div id="review1-rate">
+                            rate : <%=rate[i] %>
                         </div>
                     </div>
+                    <div id="review1-2-1-2">
+                        <%=content[i] %>
+                    </div>
                 </div>
-            </div><br><br><br><br>
-            <% } %>
+            </div>
+        </div><br><br><hr/>
+        <% } %>
 
-        <br style = "clear:both"><br><br></div>
-    </body>
-    </body>
+        <br style="clear:both"><br><br>
+    </div>
+</body>
+</body>
+
 </html>

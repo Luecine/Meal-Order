@@ -2,13 +2,15 @@
 <!--참고: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_pizza-->
 <html>
   <meta charset="EUC-KR" />
-  <title>OrderTemplate</title>
+  <title>PurchaseTemplate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   <link
     href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap"
     rel="stylesheet"
   />
+ 
+  
   <style>
     body,
     html {
@@ -54,7 +56,7 @@
           </a>
         </div>
 
-        <div id="Pizza" class="w3-container w3-black">
+        <div id="Pizza" class="w3-container w3-green">
            <% for (var i = 0; i < length; i++) { %>
           <h2>
             <b><%= name[i] %></b>
@@ -64,52 +66,29 @@
           </h2>
           <hr />
           <% } %>
-           <div id="pricetotal" class="w3-container w3-green">
-           <h2>
+           
+         </div>
+      </div>
+    
+    <div class="w3-row w3-padding-large w3-border w3-border-dark-grey">
+          <h2>
             <b>Total</b>
             <span class="w3-right w3-tag w3-dark-grey w3-round"><%= total %></span>
           </h2>
-          <hr />
-        
-        </div>
-         </div>
-      </div>
-    </div>
+          </div>
+          
+<div class="w3-row w3-padding-large w3-center w3-border w3-border-dark-grey">
 
-<div class="w3-card-4">
-
-<header class="w3-container w3-blue">
-  <h3>Card Info</h3>
-</header>
-
-<form>
-  <div class = "w3-container">
-Card Number<input class="w3-input" type="text"/>
-</div>
-
+<form action ="/creditcard" method = "get">
 <footer class="w3-container w3-blue">
- <input type = "submit" class = "w3-right" value = "Check"/>
+  
+ <input type = "submit" class = "w3-right w3-center w3-small" value = "결제정보입력"/>
  </form>
  <form action="/" method="get">
-  <input type = "submit" class = "w3-right" value = "redo"/>
+  <input type = "submit" class = "w3-left w3-center  w3-small" value = "메인으로"/>
 </form>
 </footer>
-
-
 </div>
-
-    <!-- About Container -->
-    <div
-      class="w3-container w3-padding-64 w3-red w3-grayscale w3-xxlarge w3-hide"
-    >
-      <div class="w3-content">
-        <form>
-          <input class="w3-block w3-black" type="button" value="Purchase">
-        </form>
-      </div>
-    </div>
-
-    -->
- 
+</div>
   </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--참고: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_pizza-->
 <html>
+  <head>
   <meta charset="EUC-KR" />
   <title>OrderTemplate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,10 +11,13 @@
     rel="stylesheet"
   />
   <style>
-    body,
+    img{width:30px;}
+   
+   body,  
     html {
       height: 100%;
     }
+  
     body,
     h1,
     h2,
@@ -21,88 +25,128 @@
     h4,
     h5,
     h6 {
-      font-family: "Raleway", sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
+      color : black;
     }
     .menu {
       display: none;
-    }
-    .bgimg {
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-image: url("/w3images/pizza.jpg");
-      min-height: 90%;
+      background-color: #e4f3f8;
     }
     #pButton {
       margin-left: auto;
       margin-right: auto;
     }
-  </style>
+    #menubox{
+      background-color :white;
+    }
+  #titlebox{
+     background-image: url("bolt.jpg");
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+    #textstuff{
+     color: black;
+    }
+    #textstuff2{
+     color: white;
+    }
+     #about{
+     width: 50%;
+    }
+     #index{
+     margin-top: 10%;
+     margin-left: 80%;
+     font-size :small;
+     color:white;
+    }
 
-  <body>
-    <!-- Navbar (sit on top) 
-    <div class="w3-top w3-hide-small">
-      <div
-        class="w3-bar-item w3-xlarge w3-black w3-opacity w3-hover-opacity-off w3-mobile"
-        id="myNavbar"
-      >
-        <a href="#" class="w3-bar-item w3-button">HOME</a>
-        <a href="#menu" class="w3-bar-item w3-button">MENU</a>
-        <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-        <a href="#myMap" class="w3-bar-item w3-button">CONTACT</a>
-      </div>
-    </div>
--->
-    <!-- Header with image -->
-    <header class="w3-display-topmiddle w3-margin-top" id="home">
-      <div class="w3-display-bottomleft w3-padding">
-        <!--bottom right-->
-      </div>
-      <div class="w3-display-middle w3-center">
-        <!--center-->
-        <p>
-          <a href="#menu" class="w3-button w3-xxlarge w3-black">Profile</a>
-        </p>
-      </div>
-    </header>
+    .button {
+  border-radius: 4px;
+  background-color:  #4CAF50;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top:20px;
+  margin-left: 24%;
+ 
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+#wid{width:30%;}
+
+  </style>
+</head>
+
+<body>
+    
+<div class="w3-display-topleft">
+  <button onClick="location.href='/Main'">홈으로</button>
+</div>
+
 
 <form action="/purchase" method="get">
-    <!-- Menu Container -->
-    <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
-      <div class="w3-content">
-        <h1 class="w3-center w3-jumbo" style="margin-bottom: 64px">THE MENU</h1>
-        <div class="w3-row w3-center w3-border w3-border-dark-grey">
-          <div class="w3-col w3-padding-large w3-hover-red">Menu</div>
-        </div>
-        
 
-        <div id="Pizza" class="w3-container w3-padding-32 w3-white">
+    <!-- Menu Container -->
+    <div class="w3-container w3-padding-64 w3-xxlarge" id = "titlebox">
+      <div class="w3-content" >
+        <h1 class="w3-center" style="margin-bottom: 64px" >Menu</h1>
+        <div id ="index">개수 입력</div>
+        
           <% for (var i = 0; i < length; i++) { %>
-          <h1>
-            <b><%= name[i] %></b>
-            <span class="w3-right w3-tag w3-dark-grey w3-round"
-              ><%= price[i] %></span
-            >
-            <input type = "text", name = "index"/>
-          </h1>
-          <hr />
+            <div class="w3-card" id="menubox">
+         <h2>
+            <b><%= name[i] %></b><br><br>
+            <span class="w3-left w3-tag w3-dark-grey w3-round">
+              <%= price[i] %>₩</span></h2>
+
+            
+            <input class ="w3-small w3-right" id ="wid" type = "text", name = "index", value = "0"/>
+           
+            <br>
+         
+          </div>
           <% } %>
-        </div>
+     
       </div>
+      <button class="button" type="submit"><span>Proceed </span></button>
+      </form>
     </div>
+    
 
     <!-- About Container -->
-    <div
-      class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge"
-      id="about"
-    >
-      <div class="w3-content">
-          <input
-            type="submit"
-            class="w3-button w3-xxlarge w3-display-middle"
-            value="Proceed"
-          />
-        </form>
-      </div>
-    </div>
+   
+
+   
   </body>
 </html>

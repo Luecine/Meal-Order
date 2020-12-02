@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>sale</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+
+<body style="max-width:400px;margin:16px;border:1px solid #ccc">
+
+
+  <header class="w3-container w3-card-4 w3-theme">
+    <h1>매출량</h1>
+  </header>
+
+  <script>
+    function add_sell() {
+      for (i = 0; i < FINANCE.length; i++) {
+        sell_total = sell_total + FINANCE[i].totalProfit;
+      }
+    }
+    add_sell();
+  </script>
+
+  <table class="w3-table w3-striped w3-border">
+    <thead>
+      <tr>
+        <th>날짜</th>
+        <th>매출량</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(i = 0; i < FINANCE.length; i++) { %>
+      <tr>
+        <td><%=FINANCE[i].date%></td>
+        <td><%=FINANCE[i].totalProfit%></td>
+      </tr>
+      <% } %>
+      <tr>
+        <td>총 금액: </td>
+        <td><%=sell_total%></td>
+      </tr>
+    </tbody>
+  </table>
+
+      <button class="w3-button w3-black w3-border" onClick="location.href='manager_menu'">BACK</button>
+</body>
+
+</html>
