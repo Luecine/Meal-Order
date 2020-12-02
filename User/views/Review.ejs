@@ -31,10 +31,6 @@
             margin-bottom: 50px;
         }
 
-         #ask-history {
-           background-color : yellowgreen;
-        }
-
         #review-button {
             float: right;
             margin-right: 100px;
@@ -91,14 +87,15 @@
     <div id="Review-history"><br>
         <form action="/viewHistory" method="get">
             <div id="ask-history">
-              About This Restaurant... 
+              About This Restaurant...
             </div>
-            <br>
         </form>
         <!--리뷰마다 들어갈 것들-->
         <% for(i = 0; i< length; i++) { %>
         <div id="review1">
-            
+            <div id="review1-1">
+                <img src="images/profile.png" alt="">
+            </div>
             <div id="review1-2">
                 <div id="review1-2-1">
                     <div id="review1-2-1-1">
@@ -111,11 +108,11 @@
                         </div>
                     </div>
                     <div id="review1-2-1-2">
-                      <br><br> <%=content[i] %><hr />
+                        <%=content[i] %>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><br><br><hr/>
         <% } %>
 
         <br style="clear:both"><br><br>
