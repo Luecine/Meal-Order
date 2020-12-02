@@ -111,13 +111,17 @@
       </div>
       <label>Welcome! User: <%= name %> </label>
       <div class="notification__scroll">
-        <% if(notification.length != 0 ) { %>
-          <% for(var i = 0; i< notification.length;i++) { %>
-            <p> <%=i+1%>. <%=notification[i].title %> <br> 
-              <label> <%=notification[i].content %></label>
-            </p>
+        <MARQUEE direction="up">
+          <% if(notification.length != 0 ) { %>
+            <% for(var i = 0; i< notification.length;i++) { %>
+              <p> <%=i+1%>. <%=notification[i].title %> <br> 
+                <label> <%=notification[i].content %></label>
+              </p>
+            <% } %>
           <% } %>
-        <% } %>
+
+        </MARQUEE>
+        
           
       </div>
       
