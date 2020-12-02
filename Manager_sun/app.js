@@ -68,10 +68,12 @@ app.get('/first', function (req, res) {
 
 //메뉴편집 페이지 edit_menu
 app.get('/edit_menu',function(req,res){
-    let sql = 'SELECT * FROM ITEM';    
-    conn.query(sql, function (err, rows, fields) {
-        if(err) console.log('query is not excuted. select fail...\n' + err);
-        else res.render('edit_menu.ejs', {ITEM : rows});
+    const body = req.body
+    conn.query('insert into ITEM (name, price) values (?, ?);', [
+      body.menu,
+      body.price
+    ], function() {
+      res.redirect('/edit_menu')
     });
 });
 
