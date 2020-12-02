@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>History</title>
+    <style>
+        #Review-title1 {
+            border: 1px solid;
+            float: left;
+            margin-left: 10px;
+            margin-right: 50px;
+        }
+
+        #Review-title2 {
+            border: 1px solid;
+            width: 200px;
+            float: left;
+            text-align: center;
+            background-color: rgb(34, 179, 130);
+        }
+
+        #Review-history {
+            border: 20px solid rgb(200, 200, 200);
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #ask-review {
+            margin-bottom: 50px;
+        }
+
+        #review-button {
+            float: right;
+            margin-right: 100px;
+        }
+
+        #review1-1 {
+            float: left;
+        }
+
+        #review1-2 {
+            width: 91.4%;
+            height: 100%;
+            float: left;
+        }
+
+        #review1-name {
+            float: left;
+            background-color: aquamarine;
+            margin-right: 10px;
+        }
+
+        #review1-2-2 {
+            float: right;
+            margin-right: 100px;
+        }
+
+        img {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bgimg {
+            background-image: url("bolt.jpg");
+            min-height: 50%;
+            background-position: center;
+            background-size: cover;
+            height: 150px;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgimg w3-display-container w3-animate-opacity">
+        <div id="Review-title1"><button onClick="location.href='/main'">홈으로</button> </div>
+        <div style=" margin-top: 50px; margin-bottom: 50px; text-align: center;">
+            <h1>Order History</h1>
+        </div>
+    </div>
+
+    <div id="Review-history"><br>
+        <b>Your Past Order</b><br><br>
+        <% var bo = 'false'; %>
+        <!--리뷰데이터 테이블 조회 후 넣는것들-->
+        <% for(i = 0; i< length; i++) { %>
+        <% if(bo == 'true') {bo = 'false'; continue;}%>
+        <div id="review1">
+            <div id="first">
+                <div id="resid">
+                 <%=resid[i]%>
+                </div>
+
+                <div id="history-date1">
+                 <%=date[i]%>
+                </div>
+                <div id="history-review1">
+                <%=content[i] %>
+                </div>
+                <br>
+            </div>
+
+            Total : <%=totalprice[i] %> won
+        </div><br><hr/>
+        <% } %>
+        <br><br>
+    </div>
+
+    </div>
+</body>
+</body>
+
+</html>
