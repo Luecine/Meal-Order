@@ -73,6 +73,7 @@
             margin: 8px 0;
             border: none;
         }
+        #resid{ background-color: aquamarine;}
     </style>
 </head>
 
@@ -97,15 +98,15 @@
                 </div>
 
                 <div id="history-date1">
-                 <%=date[i]%>
+               <u><%=date[i]%></u> 
                 </div>
                 <div id="history-review1">
-                <%=content[i] %>
+            <br>You Ate : <%=content[i] %>
                 </div>
                 <br>
             </div>
 
-            Total : <%=totalprice[i] %> won
+            [Total : <%=totalprice[i] %>₩]
         </div><br><hr/>
         <% } %>
         <br><br>
